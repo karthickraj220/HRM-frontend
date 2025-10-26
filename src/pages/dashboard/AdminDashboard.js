@@ -1,4 +1,4 @@
-import AdminDashboardContent from "./AdminDashboardContent"; // your existing dashboard content
+import AdminDashboardContent from "./AdminDashboardContent"; 
 import TopNavbar from "../../components/Navbar";
 
 const AdminDashboard = () => {

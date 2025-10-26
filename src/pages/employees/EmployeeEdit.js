@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Form, Button, Container } from "react-bootstrap";
 import API from "../../api/axios";
@@ -8,10 +8,8 @@ const EditEmployee = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Get employee data passed from EmployeeList
     const empData = location.state;
 
-    // If no data was passed (like direct page reload), default to empty
     const [employee, setEmployee] = useState(
         empData || { name: "", email: "", designation: "", department: "" }
     );

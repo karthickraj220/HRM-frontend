@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import API from "../../api/axios";
 import { Card, Row, Col, Container } from "react-bootstrap";
 import EmployeeList from "../employees/EmployeeList"
