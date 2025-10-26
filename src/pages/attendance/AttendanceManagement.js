@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import API from "../../api/axios";
 import { Table, Button, Form, Container, Row, Col } from "react-bootstrap";
 
@@ -10,7 +10,7 @@ const AttendanceManagement = () => {
         date: "",
     });
 
-    const fetchAttendance = async () => {
+    const fetchAttendance = useCallback(async () => {
         try {
             const query = new URLSearchParams(filters).toString();
             const res = await API.get(`/attendance/all?${query}`);
@@ -18,11 +18,11 @@ const AttendanceManagement = () => {
         } catch (err) {
             console.error(err);
         }
-    };
+    }, [filters]);
 
     useEffect(() => {
         fetchAttendance();
-    }, []);
+    }, [fetchAttendance]);
 
     const handleFilterChange = (e) => {
         setFilters({ ...filters, [e.target.name]: e.target.value });

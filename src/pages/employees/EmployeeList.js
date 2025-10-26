@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Table, Button, Form, Container, Pagination } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import API from "../../api/axios";
@@ -11,23 +11,28 @@ const EmployeeList = () => {
     const [limit] = useState(1)
     const navigate = useNavigate();
 
-    const fetchEmployees = async (pageNumber = page) => {
-        try {
-            const res = await API.get(
-                `/admin/employees?page=${pageNumber}&search=${search}`
-            );
-            setEmployees(res.data.employees || []);
-            setPage(res.data.page);
-            setTotalPages(Math.ceil(res.data.total / limit));
-        } catch (err) {
-            console.error(err);
-            alert("Failed to fetch employees");
-        }
-    };
+    const fetchEmployees = useCallback(
+        async (pageNumber = page) => {
+            try {
+                const res = await API.get(
+                    `/admin/employees?page=${pageNumber}&search=${search}`
+                );
+                setEmployees(res.data.employees || []);
+                setPage(res.data.page);
+                setTotalPages(Math.ceil(res.data.total / limit));
+            } catch (err) {
+                console.error(err);
+                alert("Failed to fetch employees");
+            }
+        },
+        [page, search, limit]
+    );
 
     useEffect(() => {
         fetchEmployees(1);
-    }, []);
+    }, [fetchEmployees]);
+
+
     const handlePageChange = (pageNumber) => {
         setPage(pageNumber);
         fetchEmployees(pageNumber);
@@ -119,7 +124,7 @@ const EmployeeList = () => {
                     </tbody>
                 </Table>
             </div>
-            {totalPages == 1 && renderPagination()}
+            {totalPages === 1 && renderPagination()}
         </Container>
     );
 };
