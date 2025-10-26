@@ -8,7 +8,7 @@ const EmployeeList = () => {
     const [search, setSearch] = useState("");
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [limit] = useState(1)
+    const [limit] = useState(10)
     const navigate = useNavigate();
 
     const fetchEmployees = useCallback(
